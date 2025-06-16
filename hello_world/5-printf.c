@@ -1,3 +1,4 @@
+#include <stdio.h>
 /**
  * main - prints a text message
  * Return: Always 0 (Success)
