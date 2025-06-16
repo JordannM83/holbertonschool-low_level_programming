@@ -5,6 +5,6 @@
  */
 int main(void)
 {
-printf("Size of char:  byte(s)\n");
+printf("Size of char: %ze byte(s)\n", sizeof(char));
 return (0);
 }
