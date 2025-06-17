@@ -13,9 +13,9 @@ int main(void)
 
 	for (number = '0'; number <= '9'; number++)
 	{
-		putchar(number);
+		printf("%c", number);
 	}
-	putchar('\n');
+	printf("\n");
 	return (0);
 }
 }
