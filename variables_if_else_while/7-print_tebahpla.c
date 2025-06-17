@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 /**
  * main - Entry point
  * Description: This program prints the lowercase alphabet
