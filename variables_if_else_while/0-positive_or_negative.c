@@ -1,8 +1,12 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 /**
- * program to find return value of a random number
- * and print whether it is positive, negative or zero
+ * main - Entry point
+ * Description: This program generates a random number
+ * checks if it is positive, negative, or zero.
+ * It then prints the appropriate message to the console.
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
