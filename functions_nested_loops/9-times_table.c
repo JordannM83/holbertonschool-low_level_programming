@@ -37,7 +37,6 @@ for (n = 0; n <= 9; n++)
 			_putchar(prod + '0');
 		}
 	}
-	_putchar('$');
 	_putchar('\n');
 }
 }
