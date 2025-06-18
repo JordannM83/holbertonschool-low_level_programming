@@ -1,12 +1,11 @@
-#include <unistd.h>
+#include "main.h"
 
 /**
  * main - Entry point
- * @c: The character to print
  * Description: This program prints "_putchar" followed by a new line.
  * Return: Always 0 (Success)
  */
-int _putchar(char c);
+
 int main(void)
 {
 char str[] = "_putchar\n";
