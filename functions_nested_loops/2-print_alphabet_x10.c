@@ -14,7 +14,7 @@ char c;
 int number_of_lines = 10;
 for (i = 0; i < number_of_lines; i++)
 {
-		for (c = 'a'; c <= 'z'; c++)
+	for (c = 'a'; c <= 'z'; c++)
 	{
 		_putchar(c);
 	}
