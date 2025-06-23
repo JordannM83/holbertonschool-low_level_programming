@@ -1,4 +1,5 @@
-#include <stdio.h>
+#ifndef _MAIN_
+#define _MAIN_
 
 int _putchar(char c);
 
@@ -20,4 +21,7 @@ void print_diagonal(int n);
 
 void print_square(int size);
 
-void fizz_buzz_test(void);
+void print_triangle(int size);
+
+#endif
+
