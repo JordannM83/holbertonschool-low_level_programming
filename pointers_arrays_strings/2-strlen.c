@@ -21,5 +21,5 @@ if (s != NULL)
 		lenght++;
 	}
 }
-return lenght;
+return (lenght);
 }
