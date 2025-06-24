@@ -13,5 +13,13 @@
 
 int _strlen(char *s)
 {
-	return (strlen(s));
+int lenght = 0;
+if (s != NULL)
+{
+	while (s[lenght] != '\0')
+	{
+		lenght++;
+	}
+}
+return lenght;
 }
