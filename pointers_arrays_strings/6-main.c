@@ -11,5 +11,11 @@ int main(void)
 
     str = "0123456789";
     puts2(str);
-    return (0);
+	str = "Holberton!";
+	puts2(str);
+	str = "Difficulraevenirent confisi properantes properantes labores adcursu corporum ad in pertulere sui flexuosas enim adulta tuetur muro.";
+    puts2(str);
+	return (0);
 }
+
+
