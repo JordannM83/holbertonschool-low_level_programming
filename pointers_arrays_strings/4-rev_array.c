@@ -15,6 +15,8 @@ void reverse_array(int *a, int n)
 
 	for (end = n - 1; end > start; end--, start++)
 	{
+		if (end == start)
+			break;
 		char temp = a[start];
 
 		a[start] = a[end];
