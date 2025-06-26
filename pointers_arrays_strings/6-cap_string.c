@@ -14,8 +14,8 @@ int i = 0;
 
 	while (str[i] != '\0')
 	{
-		if (str[i] == (char)32 || str[i] == '\t' || str[i] == '\n' || str[i] == ',' ||
-			str[i] == ';' || str[i] == '.' || str[i] == '!' || str[i] == '?' ||
+		if (str[i] == (char)32 || str[i] == '\t' || str[i] == '\n' || str[i] == ','
+		|| str[i] == ';' || str[i] == '.' || str[i] == '!' || str[i] == '?' ||
 			str[i] == (char)34 || str[i] == (char)40 || str[i] == (char)41 ||
 			str[i] == '{' || str[i] == '}')
 		{
