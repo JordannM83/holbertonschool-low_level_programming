@@ -15,16 +15,29 @@
 int main(void)
 {
 	char password[85];
-	int index = 0;
+	int index = 0, sum = 0, target = 2772;
+	int needed;
 
 	srand(time(NULL));
-	for (index = 0; index < 84; index++)
+
+	/* Generate random characters for first 83 positions */
+	for (index = 0; index < 83; index++)
 	{
-		password[index] = (rand() % ASCII_PRINTABLE_RANGE) + ASCII_PRINTABLE_START; /* printable ASCII characters */
 		password[index] = (rand() % 94) + 33; /* printable ASCII characters */
+		sum += password[index];
 	}
-	password[index] = '\0';
-	for (index = 0; index < 84; index++)
-printf("%s\n", password);
-return (0);
+
+	/* Calculate what we need for the last character */
+	needed = target - sum;
+
+	/* Adjust to printable range if needed */
+	if (needed < 33)
+		needed = 33 + (needed % 94);
+	else if (needed > 126)
+		needed = 33 + (needed % 94);
+
+	password[83] = needed;
+	password[84] = '\0';
+	printf("%s\n", password);
+	return (0);
 }
