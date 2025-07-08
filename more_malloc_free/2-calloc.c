@@ -13,7 +13,10 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 	unsigned int *grid;
 	unsigned int i;
 
+	if (nmemb == 0 || size == 0)
+		return (NULL);
 	grid = malloc(nmemb * sizeof(int));
+
 	if (grid == NULL)
 		return (NULL);
 
