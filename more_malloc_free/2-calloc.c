@@ -10,19 +10,19 @@
  */
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	unsigned int *grid;
+	void *grid;
 	unsigned int i;
 
 	if (nmemb == 0 || size == 0)
 		return (NULL);
-	grid = malloc(nmemb * size + 1);
+	grid = malloc(nmemb * size);
 
 	if (grid == NULL)
 		return (NULL);
 
-	for (i = 0; i < nmemb; i++)
+	for (i = 0; i < nmemb * size; i++)
 	{
-		grid[i] = 0;
+		((char *)grid)[i] = 0;
 	}
 	return (grid);
 }
