@@ -3,41 +3,77 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-
-
-void print_all(const char * const format, ...)
+/**
+ * print_char - prints a char
+ * @args: va_list of arguments
+ */
+void print_char(va_list args)
 {
-unsigned int i = 0;
-char *str;
-va_list args;
-
-va_start(args, format);
-
-if (format == NULL || args == NULL)
-	return;
-
-while (format && format[i])
-{
-	str = va_arg(args, char *);
-	if (format[i])
-	{
-
-	}
-	else if ()
-	{
-		
-	}
-	else if (args == NULL && format[i] == "s")
-	{
-		printf("(nil)");
-	}
-	else if (format[i] == "s")
-	{
-		printf("%s", format[i])
-	}
-	i++;
+	printf("%c", va_arg(args, int));
 }
 
-va_end(args);
-printf('\n');
+/**
+ * print_int - prints an int
+ * @args: va_list of arguments
+ */
+void print_int(va_list args)
+{
+	printf("%d", va_arg(args, int));
+}
+
+/**
+ * print_float - prints a float
+ * @args: va_list of arguments
+ */
+void print_float(va_list args)
+{
+	printf("%f", va_arg(args, double));
+}
+
+/**
+ * print_string - prints a string
+ * @args: va_list of arguments
+ */
+void print_string(va_list args)
+{
+	char *str = va_arg(args, char *);
+
+	if (str == NULL)
+		str = "(nil)";
+	printf("%s", str);
+}
+
+/**
+ * print_all - prints anything
+ * @format: list of types of arguments passed to the function
+ */
+void print_all(const char * const format, ...)
+{
+	unsigned int i = 0;
+	unsigned int j;
+	va_list args;
+	char *separator = "";
+	char types[] = "cifs";
+	void (*funcs[])(va_list) = {print_char, print_int, print_float, print_string};
+
+	va_start(args, format);
+
+	while (format && format[i])
+	{
+		j = 0;
+		while (types[j])
+		{
+			if (format[i] == types[j])
+			{
+				printf("%s", separator);
+				separator = ", ";
+				funcs[j](args);
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	va_end(args);
+	printf("\n");
 }
