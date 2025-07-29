@@ -10,7 +10,6 @@ void free_list(list_t *head)
 {
 	/* Déclarer un pointeur temporaire pour parcourir */
 	list_t *temp;
-	/* Déclarer un pointeur pour sauvegarder le nœud suivant */
 	while (head != NULL)
 	{
 		temp = head->next;
