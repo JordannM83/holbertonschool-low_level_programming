@@ -12,5 +12,37 @@
 
 int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
+	{
+	dlistint_t *new_node, *current;
+	unsigned int i;
 
+	if (h == NULL)
+		return (NULL);
+
+	if (index == 0)
+		return (add_dnodeint(h, n));
+
+	current = *head;
+	for (i = 0; i < index && current != NULL; i++)
+		current = current->next;
+
+	if (current == NULL && i == idx)
+		return (add_dnodeint_end(h, n));
+
+	if (current == NULL)
+		return (NULL);
+
+	new_node = malloc(sizeof(dlistint_t));
+	if (new_node == NULL)
+		return (NULL);
+
+	new_node->next = current;
+	new_node->prev = current->prev;
+
+	if (current->prev != NULL)
+		current->prev->next = new_node;
+	current->prev = new_node;
+
+	return (new_node);
+}
 }
