@@ -54,18 +54,24 @@ void open_files(char *argv[], int *fd_from, int *fd_to)
  */
 void copy_file(int fd_from, int fd_to, char *argv[])
 {
-	ssize_t bytes_read, bytes_written;
+	ssize_t bytes_read, bytes_written, total_written;
 	char buffer[BUFFER_SIZE];
 
 	while ((bytes_read = read(fd_from, buffer, BUFFER_SIZE)) > 0)
 	{
-		bytes_written = write(fd_to, buffer, bytes_read);
-		if (bytes_written == -1 || bytes_written != bytes_read)
+		total_written = 0;
+		while (total_written < bytes_read)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close_file(fd_from);
-			close_file(fd_to);
-			exit(99);
+			bytes_written = write(fd_to, buffer + total_written,
+								bytes_read - total_written);
+			if (bytes_written == -1)
+			{
+				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+				close_file(fd_from);
+				close_file(fd_to);
+				exit(99);
+			}
+			total_written += bytes_written;
 		}
 	}
 
