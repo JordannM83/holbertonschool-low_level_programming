@@ -9,6 +9,15 @@
  */
 unsigned long int key_index(const unsigned char *key, unsigned long int size)
 {
-	/* TODO: Implement key to index conversion */
-	return (0);
+	unsigned long int search = 0;
+
+	if (key == NULL)
+		return (0);
+
+	if (size == 0)
+		return (0);
+
+	search = hash_djb2((unsigned char *)key);
+	search = search % size;
+	return (search);
 }
