@@ -20,5 +20,7 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 
 	if (current == NULL)
 		return (NULL);
+	if (current->value == NULL)
+		return (NULL);
 	return (current->value);
 }
