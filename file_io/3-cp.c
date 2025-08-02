@@ -87,6 +87,20 @@ int main(int argc, char *argv[])
 		exit(99);
 	}
 
+	/* Ensure correct permissions regardless of umask */
+	if (fchmod(fd_to, 0664) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		close_result = close(fd_from);
+		if (close_result == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+			exit(100);
+		}
+		error_close(fd_to);
+		exit(99);
+	}
+
 	copy_data(fd_from, fd_to, argv);
 	error_close(fd_from);
 	error_close(fd_to);
