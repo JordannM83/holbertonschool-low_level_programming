@@ -74,36 +74,31 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	/* Try to open existing file first (without changing permissions) */
-	fd_to = open(argv[2], O_WRONLY | O_TRUNC);
+	fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
-		/* File doesn't exist, create it with proper permissions */
-		fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-		if (fd_to == -1)
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		close_result = close(fd_from);
+		if (close_result == -1)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close_result = close(fd_from);
-			if (close_result == -1)
-			{
-				dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
-				exit(100);
-			}
-			exit(99);
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+			exit(100);
 		}
-		/* Ensure correct permissions for newly created file */
-		if (fchmod(fd_to, 0664) == -1)
+		exit(99);
+	}
+
+	/* Set exact permissions 0664 regardless of umask */
+	if (fchmod(fd_to, 0664) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		close_result = close(fd_from);
+		if (close_result == -1)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close_result = close(fd_from);
-			if (close_result == -1)
-			{
-				dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
-				exit(100);
-			}
-			error_close(fd_to);
-			exit(99);
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+			exit(100);
 		}
+		error_close(fd_to);
+		exit(99);
 	}
 
 	copy_data(fd_from, fd_to, argv);
