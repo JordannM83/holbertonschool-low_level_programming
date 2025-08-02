@@ -55,7 +55,7 @@ void copy_data(int fd_from, int fd_to, char **argv)
  */
 int main(int argc, char *argv[])
 {
-	int fd_from, fd_to, close_result;
+	int fd_from, fd_to;
 
 	if (argc != 3)
 	{
@@ -70,30 +70,11 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_to == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		close_result = close(fd_from);
-		if (close_result == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
-			exit(100);
-		}
-		exit(99);
-	}
-
-	/* Set exact permissions 0664 regardless of umask */
-	if (fchmod(fd_to, 0664) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		close_result = close(fd_from);
-		if (close_result == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
-			exit(100);
-		}
-		error_close(fd_to);
+		error_close(fd_from);
 		exit(99);
 	}
 
