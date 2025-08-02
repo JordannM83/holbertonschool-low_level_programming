@@ -74,14 +74,7 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	/* Try to open existing file first (without changing permissions) */
-	fd_to = open(argv[2], O_WRONLY | O_TRUNC);
-	if (fd_to == -1)
-	{
-		/* File doesn't exist, create it with proper permissions */
-		fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	}
-	
+	fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
