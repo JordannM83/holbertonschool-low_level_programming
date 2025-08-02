@@ -35,8 +35,8 @@ void copy_data(int fd_from, int fd_to, char **argv)
 		if (bytes_written == -1 || bytes_written != bytes_read)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			error_close(fd_from);
-			error_close(fd_to);
+			close(fd_from);
+			close(fd_to);
 			exit(99);
 		}
 	}
@@ -44,8 +44,8 @@ void copy_data(int fd_from, int fd_to, char **argv)
 	if (bytes_read == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		error_close(fd_from);
-		error_close(fd_to);
+		close(fd_from);
+		close(fd_to);
 		exit(98);
 	}
 }
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
 	if (fd_to == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		error_close(fd_from);
+		close(fd_from);
 		exit(99);
 	}
 
@@ -86,15 +86,23 @@ int main(int argc, char *argv[])
 	if (fchmod(fd_to, 0664) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		error_close(fd_from);
-		error_close(fd_to);
+		close(fd_from);
+		close(fd_to);
 		exit(99);
 	}
 
 	copy_data(fd_from, fd_to, argv);
 	
-	error_close(fd_from);
-	error_close(fd_to);
+	if (close(fd_from) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+		exit(100);
+	}
+	if (close(fd_to) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
+		exit(100);
+	}
 
 	return (0);
 }
