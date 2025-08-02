@@ -35,8 +35,8 @@ void copy_data(int fd_from, int fd_to, char **argv)
 		if (bytes_written == -1 || bytes_written != bytes_read)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close(fd_from);
-			close(fd_to);
+			error_close(fd_from);
+			error_close(fd_to);
 			exit(99);
 		}
 	}
@@ -44,8 +44,8 @@ void copy_data(int fd_from, int fd_to, char **argv)
 	if (bytes_read == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		close(fd_from);
-		close(fd_to);
+		error_close(fd_from);
+		error_close(fd_to);
 		exit(98);
 	}
 }
